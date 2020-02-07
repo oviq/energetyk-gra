@@ -38,7 +38,13 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Tlo
+  - name: Floor1
+    uniqueID: 1471071611
+    locked: 0
+  - name: Floor2
+    uniqueID: 1168061697
+    locked: 0
+  - name: Entities
     uniqueID: 803971281
     locked: 0
   - name: Default
