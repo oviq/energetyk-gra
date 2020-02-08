@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/zabka.unity
-    guid: 932ce082d5a3db341a8c648aa0573a7c
-  - enabled: 1
-    path: Assets/Scenes/battle.unity
-    guid: 739557b15dd677641b89b1e3e35f1033
+    path: Assets/Scenes/test_level.unity
+    guid: 85600a66b0414254a84bd97692f57e0f
   m_configObjects: {}

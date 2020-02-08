@@ -63,15 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Battle\BattleAIController.cs" />
-    <Compile Include="Assets\Scripts\Battle\BattleManager.cs" />
-    <Compile Include="Assets\Scripts\Battle\BattlePlayerController.cs" />
-    <Compile Include="Assets\Scripts\Battle\StatsDialogController.cs" />
-    <Compile Include="Assets\Scripts\Battle\Unit.cs" />
-    <Compile Include="Assets\Scripts\Swiat\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\Swiat\ChangeLevel.cs" />
-    <Compile Include="Assets\Scripts\Swiat\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Swiat\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\ChangeLevel.cs" />
+    <Compile Include="Assets\Scripts\CharacterMovement.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/unity/projekty/energetyk_gra/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
