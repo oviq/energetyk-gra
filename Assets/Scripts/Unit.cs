@@ -10,6 +10,8 @@ public class Unit : MonoBehaviour
 
     public GameObject tlusta_chmura;
 
+    public HealthBar healthBar;
+
     public float cooldown;
     private float attack_counter;
 
@@ -18,6 +20,8 @@ public class Unit : MonoBehaviour
     {
         attack_counter = 0;
         hp = max_hp;
+        healthBar.SetMaxHealth(max_hp);
+        healthBar.SetHealth(hp);
     }
 
     // Update is called once per frame
@@ -29,6 +33,7 @@ public class Unit : MonoBehaviour
     public void TakeDamege(float damage)
     {
         hp -= damage;
+        healthBar.SetHealth(hp);
     }
 
     public void Attack()
