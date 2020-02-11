@@ -12,14 +12,15 @@ public class PlayerController : MonoBehaviour
 
     public CameraFollow cam;
 
-    private CharacterMovement controller;
+    private CharacterMovement char_movement;
+    [SerializeField] private Unit char_unit;
+
     private bool state;
 
     // Start is called before the first frame update
     void Start()
     {
-        cam.target = boy;
-        controller = boy.GetComponent<CharacterMovement>();
+        SetCharacter(boy);
         state = false;
     }
 
@@ -29,25 +30,37 @@ public class PlayerController : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        controller.ApplyMovement(movement);
+        char_movement.ApplyMovement(movement);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.RightShift))
         {
-            controller.ApplyMovement(Vector3.zero);
+            char_movement.ApplyMovement(Vector3.zero);
 
             state = !state;
 
             if (state == true)
             {
-                cam.target = gal;
-                controller = gal.GetComponent<CharacterMovement>();
+                SetCharacter(gal);
             }
 
             if (state == false)
             {
-                cam.target = boy;
-                controller = boy.GetComponent<CharacterMovement>();
+                SetCharacter(boy);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            char_unit.Attack();
+        }
+    }
+
+    void SetCharacter(GameObject character)
+    {
+        cam.target = character;
+        char_movement = character.GetComponent<CharacterMovement>();
+        char_unit = character.GetComponent<Unit>();
     }
 }
+
+
