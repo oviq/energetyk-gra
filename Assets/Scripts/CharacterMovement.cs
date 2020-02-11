@@ -5,17 +5,19 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     public float speed;
-
-    private Rigidbody2D rb;
+    
     private Vector3 movement;
 
-    public Animator animator;
+    private Animator animator;
+    private Rigidbody2D rb;
+    private Unit unit;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
+        unit = gameObject.GetComponent<Unit>();
     }
 
     // Update is called once per frame
@@ -26,10 +28,18 @@ public class CharacterMovement : MonoBehaviour
 
     public void ApplyMovement(Vector3 _movement)
     {
-        movement = _movement;
+        if (unit.isAlive)
+        {
+            movement = _movement;
 
-        animator.SetFloat("speed", Mathf.Abs(movement.magnitude));
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("speed", Mathf.Abs(movement.magnitude));
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+        }
+    }
+
+    public void Die()
+    {
+        animator.SetBool("isAlive", false);
     }
 }

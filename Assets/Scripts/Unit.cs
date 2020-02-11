@@ -7,6 +7,7 @@ public class Unit : MonoBehaviour
 
     public float hp;
     public float max_hp;
+    public bool isAlive;
 
     public GameObject tlusta_chmura;
 
@@ -15,6 +16,8 @@ public class Unit : MonoBehaviour
     public float cooldown;
     private float attack_counter;
 
+    private CharacterMovement cm;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,28 +25,45 @@ public class Unit : MonoBehaviour
         hp = max_hp;
         healthBar.SetMaxHealth(max_hp);
         healthBar.SetHealth(hp);
+        isAlive = true;
+
+        cm = gameObject.GetComponent<CharacterMovement>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        attack_counter += Time.fixedDeltaTime;
+        if (isAlive)
+        {
+            attack_counter += Time.fixedDeltaTime;
+
+            if (hp <= 0)
+            {
+                isAlive = false;
+                cm.Die();
+            }
+        }
+
     }
 
     public void TakeDamege(float damage)
     {
-        hp -= damage;
-        healthBar.SetHealth(hp);
+        if (isAlive)
+        {
+            hp -= damage;
+            healthBar.SetHealth(hp);
+        }
     }
 
     public void Attack()
     {
-        if (attack_counter > cooldown)
+        if (isAlive)
         {
-            Instantiate(tlusta_chmura, transform.position, Quaternion.identity);
-            attack_counter = 0; 
+            if (attack_counter > cooldown)
+            {
+                Instantiate(tlusta_chmura, transform.position, Quaternion.identity);
+                attack_counter = 0;
+            }
         }
-        
     }
-
 }
