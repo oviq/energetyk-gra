@@ -2627,7 +2627,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdown: 12
-  attack_counter: 0
+  damage: 2
+  targets: []
 --- !u!212 &1974165107
 SpriteRenderer:
   m_ObjectHideFlags: 0

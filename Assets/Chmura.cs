@@ -7,7 +7,10 @@ using UnityEngine;
 public class Chmura : MonoBehaviour
 {
     public float countdown;
-    [SerializeField] private float attack_counter;
+    public int damage;
+    private float attack_counter;
+
+    public List<Unit> targets;
 
     // Start is called before the first frame update
     void Start()
@@ -18,15 +21,30 @@ public class Chmura : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        attack_counter++;
+        if (targets.Count > 0)
+        {
+            // zadaje obrazenia wszystkim celom co <countdown> czasu
+            attack_counter++;
+
+            if (attack_counter > countdown)
+            {
+                foreach (Unit x in targets)
+                {
+                    x.TakeDamege(damage);
+                }
+
+                attack_counter = 0;
+            }
+        }
     }
 
-    void OnTriggerStay2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (attack_counter > countdown)
-        {
-            col.GetComponent<Unit>().TakeDamege(5);
-            attack_counter = 0;
-        }   
+        targets.Add(col.GetComponent<Unit>());
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        targets.Remove(col.GetComponent<Unit>());
     }
 }
