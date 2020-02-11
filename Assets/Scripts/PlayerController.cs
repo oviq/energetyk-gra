@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
         char_movement.ApplyMovement(movement);
 
-        if (Input.GetKeyDown(KeyCode.RightShift))
+        if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.LeftShift))
         {
             char_movement.ApplyMovement(Vector3.zero);
 
