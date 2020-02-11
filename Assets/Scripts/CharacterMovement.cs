@@ -41,5 +41,7 @@ public class CharacterMovement : MonoBehaviour
     public void Die()
     {
         animator.SetBool("isAlive", false);
+
+        movement = Vector3.zero;
     }
 }
