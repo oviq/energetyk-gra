@@ -10,8 +10,8 @@ public class Unit : MonoBehaviour
 
     public GameObject tlusta_chmura;
 
-    public float countdown;
-    [SerializeField] private float attack_counter;
+    public float cooldown;
+    private float attack_counter;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,9 @@ public class Unit : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        attack_counter++;
+        attack_counter += Time.fixedDeltaTime;
     }
 
     public void TakeDamege(float damage)
@@ -33,9 +33,9 @@ public class Unit : MonoBehaviour
 
     public void Attack()
     {
-        if (attack_counter > countdown)
+        if (attack_counter > cooldown)
         {
-            //Instantiate(tlusta_chmura, transform);
+            Instantiate(tlusta_chmura, transform.position, Quaternion.identity);
             attack_counter = 0; 
         }
         
