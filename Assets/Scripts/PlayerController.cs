@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public Camera cam;
 
     public GameObject znacznikPrefab;
-    GameObject znacznikInstance;
+    List<GameObject> znacznikInstances = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -30,16 +30,28 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         { 
-            if (znacznikInstance!=null)
+            // usuwa poprzednie znaczniki jesli takie sa
+            if (znacznikInstances.Count!=0)
             {
-                Destroy(znacznikInstance, 0f);
+                foreach(GameObject x in znacznikInstances)
+                {
+                    Destroy(x, 0f);
+                }
+                znacznikInstances.Clear();
             }
 
-            znacznikInstance = Instantiate(znacznikPrefab, (Vector2)cam.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
-
+            // spawnuje i ustawia znaczniki jako cele skryptu wyszukujacego sciezki
+            int i = 0;
             foreach(GameObject x in selected)
             {
-                x.GetComponent<CharacterPathfinding>().SetTarget(znacznikInstance.transform);
+                // tu powinna byc jakas dobrze napisana funkcja ale na razie musi wystarzyc
+                Vector2 znacznikPosition = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition) + new Vector2((2-i)-1.5f, 0);
+
+                // dodaje znaczniki
+                znacznikInstances.Add(Instantiate(znacznikPrefab, znacznikPosition, Quaternion.identity));
+                x.GetComponent<CharacterPathfinding>().SetTarget(znacznikInstances[i].transform);
+
+                i++;
             }
         }
 
