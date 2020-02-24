@@ -5,61 +5,50 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    private Vector3 movement;
-
     public GameObject boy;
     public GameObject gal;
 
-    public CameraFollow cam;
+    [SerializeField] public HashSet<GameObject> selected;
 
-    private CharacterMovement char_movement;
-    [SerializeField] private Unit char_unit;
+    public Camera cam;
 
-    private bool state;
+    public GameObject znacznikPrefab;
+    GameObject znacznikInstance;
 
     // Start is called before the first frame update
     void Start()
     {
-        SetCharacter(boy);
-        state = false;
+        selected = new HashSet<GameObject>();
+
+        selected.Add(boy);
+        selected.Add(gal);
     }
 
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-
-        char_movement.ApplyMovement(movement);
-
-        if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            char_movement.ApplyMovement(Vector3.zero);
-
-            state = !state;
-
-            if (state == true)
+        
+        if (Input.GetMouseButtonDown(0))
+        { 
+            if (znacznikInstance!=null)
             {
-                SetCharacter(gal);
+                Destroy(znacznikInstance, 0f);
             }
 
-            if (state == false)
+            znacznikInstance = Instantiate(znacznikPrefab, (Vector2)cam.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+
+            foreach(GameObject x in selected)
             {
-                SetCharacter(boy);
+                x.GetComponent<CharacterPathfinding>().SetTarget(znacznikInstance.transform);
             }
         }
 
+        /*/ trzeba to zaimplementowac ciutke inaczej
         if (Input.GetKeyDown(KeyCode.Space))
         {
             char_unit.Attack();
         }
-    }
-
-    void SetCharacter(GameObject character)
-    {
-        cam.target = character;
-        char_movement = character.GetComponent<CharacterMovement>();
-        char_unit = character.GetComponent<Unit>();
+        /*/
     }
 }
 

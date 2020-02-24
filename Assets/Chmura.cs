@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// ten caly skrypt nie dziala trzeba go naprawic
+// ten caly skrypt juz w sumie dziala
 
 public class Chmura : MonoBehaviour
 {
