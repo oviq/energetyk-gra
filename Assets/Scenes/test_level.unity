@@ -2282,7 +2282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   nextWaypointDistance: 1
-  maxDistanceToTarget: 1
+  maxDistanceToTarget: 0.9
 --- !u!224 &1614332549 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2696734103189756820, guid: efedd6c6ba3a88a4a95aca61b93107c0,
@@ -2601,7 +2601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   nextWaypointDistance: 1
-  maxDistanceToTarget: 1
+  maxDistanceToTarget: 0.9
 --- !u!114 &1681440913
 MonoBehaviour:
   m_ObjectHideFlags: 0
