@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
 
     public List<Transform> targets;
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         if(targets.Count > 0)
         {
