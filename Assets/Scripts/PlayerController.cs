@@ -54,13 +54,6 @@ public class PlayerController : MonoBehaviour
                 i++;
             }
         }
-
-        /*/ trzeba to zaimplementowac ciutke inaczej
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            char_unit.Attack();
-        }
-        /*/
     }
 }
 

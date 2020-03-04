@@ -5,11 +5,9 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
 
-    public float hp;
+    private float hp;
     public float max_hp;
     public bool isAlive;
-
-    public GameObject tlusta_chmura;
 
     public HealthBar healthBar;
 
@@ -52,18 +50,6 @@ public class Unit : MonoBehaviour
         {
             hp -= damage;
             healthBar.SetHealth(hp);
-        }
-    }
-
-    public void Attack()
-    {
-        if (isAlive)
-        {
-            if (attack_counter > cooldown)
-            {
-                Instantiate(tlusta_chmura, transform.position, Quaternion.identity);
-                attack_counter = 0;
-            }
         }
     }
 }
