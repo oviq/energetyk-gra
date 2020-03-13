@@ -15,7 +15,10 @@ public class Unit : MonoBehaviour
 
     public HealthBar healthBar;
 
-    public float cooldown;
+    // dostepne ataki jednostki i aktualnie wybrany atak, oraz aktualny cel
+    public List<Attack> attacks;
+    [SerializeField] public Attack currentAttack;
+    public Unit currentTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -53,5 +56,10 @@ public class Unit : MonoBehaviour
                 healthBar.SetHealth(hp);
             }
         }
+    }
+
+    public void Attack()
+    {
+        currentAttack.Action(currentTarget);
     }
 }

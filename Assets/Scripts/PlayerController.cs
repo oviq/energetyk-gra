@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         selected = new HashSet<GameObject>();
 
-        selected.Add(boy);
+        //selected.Add(boy);
         selected.Add(gal);
     }
 
@@ -54,6 +54,15 @@ public class PlayerController : MonoBehaviour
                 x.GetComponent<CharacterPathfinding>().SetTarget(znacznikInstances[i].transform);
 
                 i++;
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            foreach (GameObject x in selected)
+            {
+                x.GetComponent<Unit>().currentTarget = boy.GetComponent<Unit>();
+                x.GetComponent<Unit>().Attack();
             }
         }
     }
