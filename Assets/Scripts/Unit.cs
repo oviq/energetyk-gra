@@ -8,19 +8,20 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-
+    // statystyki jednostki i czy nalezy do gracza
     private float hp;
     public float max_hp;
     public bool isAlive;
+    public bool canBeControlledByPlayer;
 
+    // dostep do klasy paska zycia
     public HealthBar healthBar;
 
     // dostepne ataki jednostki i aktualnie wybrany atak, oraz aktualny cel
     public List<Attack> attacks;
-    [SerializeField] public Attack currentAttack;
+    public Attack currentAttack;
     public Unit currentTarget;
 
-    // Start is called before the first frame update
     void Start()
     {
         hp = max_hp;
@@ -32,7 +33,6 @@ public class Unit : MonoBehaviour
         isAlive = true;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (isAlive)
@@ -45,6 +45,7 @@ public class Unit : MonoBehaviour
 
     }
 
+    // mozna zadawac obrazenia
     public void TakeDamege(float damage)
     {
         if (isAlive)
@@ -58,8 +59,15 @@ public class Unit : MonoBehaviour
         }
     }
 
+    // wykonuje currentAttack na currentTargecie
     public void Attack()
     {
         currentAttack.Action(currentTarget);
+    }
+
+    // wykonuje currentAttack na currentTargecie oraz daje atakowi dostep do systemu animacji
+    public void Attack(Animator animator)
+    {
+        currentAttack.Action(currentTarget, animator);
     }
 }

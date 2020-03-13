@@ -4,6 +4,8 @@ using UnityEngine;
 
 // klasa do kontrolowania ruchu i animacji dowolnej postaci
 // interfejs miedzy pathfinderem a systemem animacji i rigidbody
+// moze dzialac bez podpietego animatora, wtedy po prostu nie
+// proboje wykonywac animacji
 public class CharacterMovement : MonoBehaviour
 {
     public float speed;
@@ -54,7 +56,10 @@ public class CharacterMovement : MonoBehaviour
 
     private void Die()
     {
-        animator.SetBool("isAlive", false);
+        if (animator != null)
+        {
+            animator.SetBool("isAlive", false);
+        }
 
         movement = Vector3.zero;
     }

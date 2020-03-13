@@ -6,15 +6,16 @@ using UnityEngine;
 // pozwala kontrolowac jednostki gracza, wydawac im polecenia itd
 public class PlayerController : MonoBehaviour
 {
-
     public GameObject boy;
     public GameObject gal;
 
-    [SerializeField] public HashSet<GameObject> selected;
+    private HashSet<GameObject> selected;
 
     public Camera cam;
 
     public GameObject znacznikPrefab;
+    public GameObject znacznikPostac;
+    public GameObject znacznikPrzeciwnik;
     List<GameObject> znacznikInstances = new List<GameObject>();
 
     // Start is called before the first frame update
@@ -23,14 +24,14 @@ public class PlayerController : MonoBehaviour
         selected = new HashSet<GameObject>();
 
         //selected.Add(boy);
-        selected.Add(gal);
+        //selected.Add(gal);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (Input.GetMouseButtonDown(0))
+        // akcja przy kliknieciu prawym przyciskiem
+        if (Input.GetMouseButtonDown(1))
         { 
             // usuwa poprzednie znaczniki jesli takie sa
             if (znacznikInstances.Count!=0)
@@ -57,14 +58,57 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        // akcja przy kliknieciu lewym przyciskiem
+        // !UWAGA! kod-spaghetti
+        if (Input.GetMouseButtonDown(0))
         {
-            foreach (GameObject x in selected)
+            GameObject target = HelperFunctions.GetWorldObject(Input.mousePosition);
+            if (target != null)
             {
-                x.GetComponent<Unit>().currentTarget = boy.GetComponent<Unit>();
-                x.GetComponent<Unit>().Attack();
+                // jezeli target jest jednostka
+                if (target.GetComponent<Unit>() != null)
+                {
+                    // jezeli target nalezy do gracza
+                    if (target.GetComponent<Unit>().canBeControlledByPlayer)
+                    {
+                        // jezeli target jest juz zaznaczony
+                        if (selected.Contains(target))
+                        {
+                            RemoveFromSelected(target);
+                        }
+                        // jezeli target nie jest zaznaczony
+                        else
+                        {
+                            AddToSelected(target);
+                        }
+                    } 
+                    // jezeli nie nalezy do gracza
+                    else
+                    {
+
+                    }
+                }
+
             }
         }
+    }
+
+
+    // funkcje do zaznaczania i odznaczania postaci
+    void AddToSelected(GameObject target)
+    {
+        selected.Add(target);
+
+        Transform targetZnacznikPosition = target.transform.Find("znacznikPosition").transform;
+        Instantiate(znacznikPostac, targetZnacznikPosition);
+    }
+
+    void RemoveFromSelected(GameObject target)
+    {
+        selected.Remove(target);
+
+        GameObject znacznik = target.transform.Find("znacznikPosition").transform.Find("zaznaczona postac(Clone)").transform.gameObject;
+        Destroy(znacznik);
     }
 }
 
