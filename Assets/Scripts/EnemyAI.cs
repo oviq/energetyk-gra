@@ -8,6 +8,8 @@ enum EnemyState {
     ATTACK
 };
 
+
+// proste, ogolne ai przeciwnika
 public class EnemyAI : MonoBehaviour
 {
     CharacterPathfinding pathfinding;

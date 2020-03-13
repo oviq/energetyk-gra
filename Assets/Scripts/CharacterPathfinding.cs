@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
+
+// glowna klasa posredniczaca miedzy character movementem a systemem wyszukiwania tras
 public class CharacterPathfinding : MonoBehaviour
 {
 
@@ -29,9 +31,6 @@ public class CharacterPathfinding : MonoBehaviour
 
     void UpdatePath()
     {
-        // logowanie
-        //Debug.Log(gameObject.name + ": updated path");
-
         if (target != null)
         {
             if (seeker.IsDone())

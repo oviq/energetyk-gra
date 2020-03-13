@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// klasa generalnego uzytku do przechowywania stanu zdrowia dowolnej jednostki
+// mozna do niej podlaczyc pasek zdrowia, ale dziala nawet bez niego
+
 public class Unit : MonoBehaviour
 {
 
@@ -12,20 +16,17 @@ public class Unit : MonoBehaviour
     public HealthBar healthBar;
 
     public float cooldown;
-    private float attack_counter;
-
-    private CharacterMovement cm;
 
     // Start is called before the first frame update
     void Start()
     {
-        attack_counter = 0;
         hp = max_hp;
-        healthBar.SetMaxHealth(max_hp);
-        healthBar.SetHealth(hp);
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(max_hp);
+            healthBar.SetHealth(hp);
+        }
         isAlive = true;
-
-        cm = gameObject.GetComponent<CharacterMovement>();
     }
 
     // Update is called once per frame
@@ -33,12 +34,9 @@ public class Unit : MonoBehaviour
     {
         if (isAlive)
         {
-            attack_counter += Time.fixedDeltaTime;
-
             if (hp <= 0)
             {
                 isAlive = false;
-                cm.Die();
             }
         }
 
@@ -49,7 +47,11 @@ public class Unit : MonoBehaviour
         if (isAlive)
         {
             hp -= damage;
-            healthBar.SetHealth(hp);
+
+            if (healthBar != null)
+            {
+                healthBar.SetHealth(hp);
+            }
         }
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// responsywna kamera ktora potrafi podazac za wieloma celami
 public class CameraFollow : MonoBehaviour
 {
-
     public List<Transform> targets;
 
     void LateUpdate()

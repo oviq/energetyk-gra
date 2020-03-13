@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// klasa do kontrolowania ruchu i animacji dowolnej postaci
+// interfejs miedzy pathfinderem a systemem animacji i rigidbody
 public class CharacterMovement : MonoBehaviour
 {
     public float speed;
@@ -12,15 +14,16 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Unit unit;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         unit = gameObject.GetComponent<Unit>();
+
+        // sprawdza czy jednostka zyje co jakis czas
+        InvokeRepeating("IsDead", 0f, 0.1f);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + (Vector2)movement * speed * Time.fixedDeltaTime);
@@ -32,13 +35,24 @@ public class CharacterMovement : MonoBehaviour
         {
             movement = _movement;
 
-            animator.SetFloat("speed", Mathf.Abs(movement.magnitude));
-            animator.SetFloat("Horizontal", movement.x);
-            animator.SetFloat("Vertical", movement.y);
+            if (animator != null)
+            {
+                animator.SetFloat("speed", Mathf.Abs(movement.magnitude));
+                animator.SetFloat("Horizontal", movement.x);
+                animator.SetFloat("Vertical", movement.y);
+            }
         }
     }
 
-    public void Die()
+    private void IsDead()
+    {
+        if (!unit.isAlive)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
     {
         animator.SetBool("isAlive", false);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// interfejs miedzy ui paska zdrowia a klasa unit
 public class HealthBar : MonoBehaviour
 {
     public void SetHealth(float x)

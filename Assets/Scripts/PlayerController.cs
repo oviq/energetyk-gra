@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// pozwala kontrolowac jednostki gracza, wydawac im polecenia itd
 public class PlayerController : MonoBehaviour
 {
 
