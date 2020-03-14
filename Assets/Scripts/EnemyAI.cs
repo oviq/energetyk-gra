@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TRZEBA NAPRAWIC WYSZUKIWANIE CELOW
-
 enum EnemyState {
     IDLE,
     FOLLOW,
     ATTACK
 };
 
-
 // proste, ogolne ai przeciwnika
 public class EnemyAI : MonoBehaviour
 {
     CharacterPathfinding pathfinding;
     Unit unit;
+
+    public float sightDistance = 5f;
 
     EnemyState state;
 
@@ -27,15 +26,9 @@ public class EnemyAI : MonoBehaviour
 
         state = EnemyState.IDLE;
 
-        InvokeRepeating("UpdateState", 0.5f, 0);
+        InvokeRepeating("UpdateState", 0f, 0.5f);
+        InvokeRepeating("LookForTargets", 0f, 0.6f);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 
     // ta funkcja implementuje cala maszyne stanow
     void UpdateState()
@@ -55,14 +48,24 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    // TO SAMO ALE NIE MOZE KORZYSTAC Z TRIGGER COLLIDERA
-    // wejscie w trigger przez cokolwiek
-    private void OnTriggerEnter2D(Collider2D collision)
+    // wejscie w trigger przez gracza
+    private void LookForTargets()
     {
-        if (collision.gameObject.GetComponent<CharacterMovement>()!=null)
+        if (state == EnemyState.IDLE)
         {
-            pathfinding.SetTarget(collision.transform);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(gameObject.transform.position, sightDistance);
+
+            // ustawi obiekt jako cel, jesli jest jednostka kontrolowalna przez gracza
+            foreach (Collider2D x in colliders)
+            {
+                if (x.gameObject.GetComponent<Unit>() != null)
+                {
+                    if (x.gameObject.GetComponent<Unit>().canBeControlledByPlayer)
+                    {
+                        pathfinding.SetTarget(x.transform);
+                    }
+                }
+            }
         }
-        
     }
 }
