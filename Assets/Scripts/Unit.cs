@@ -31,6 +31,8 @@ public class Unit : MonoBehaviour
             healthBar.SetHealth(hp);
         }
         isAlive = true;
+
+        InvokeRepeating("IsTargetAlive", 0f, 0.1f);
     }
 
     void FixedUpdate()
@@ -62,12 +64,30 @@ public class Unit : MonoBehaviour
     // wykonuje currentAttack na currentTargecie
     public void Attack()
     {
-        currentAttack.Action(currentTarget);
+        if (currentTarget != null)
+        {
+            currentAttack.Action(currentTarget);
+        }
     }
 
     // wykonuje currentAttack na currentTargecie oraz daje atakowi dostep do systemu animacji
     public void Attack(Animator animator)
     {
-        currentAttack.Action(currentTarget, animator);
+        if (currentTarget != null || currentTarget.isAlive)
+        {
+            currentAttack.Action(currentTarget, animator);
+        }
+    }
+
+    // sprawdza czy target jest zywy
+    private void IsTargetAlive()
+    {
+        if (currentTarget != null || currentTarget.isAlive)
+        {
+            if (!currentTarget.isAlive)
+            {
+                currentTarget = null;
+            }
+        }
     }
 }

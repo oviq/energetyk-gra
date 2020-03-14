@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
         selected = new HashSet<GameObject>();
         znacznikInstances = new List<GameObject>();
         znacznikiNaPrzeciwnikach = new List<GameObject>();
+
+        InvokeRepeating("UpdateTargetsZnaczniki", 0f, 0.2f);
     }
 
     // Update is called once per frame
