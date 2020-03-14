@@ -64,7 +64,7 @@ public class Unit : MonoBehaviour
     // wykonuje currentAttack na currentTargecie
     public void Attack()
     {
-        if (currentTarget != null)
+        if (currentTarget != null && currentTarget.isAlive)
         {
             currentAttack.Action(currentTarget);
         }
@@ -73,7 +73,7 @@ public class Unit : MonoBehaviour
     // wykonuje currentAttack na currentTargecie oraz daje atakowi dostep do systemu animacji
     public void Attack(Animator animator)
     {
-        if (currentTarget != null || currentTarget.isAlive)
+        if (currentTarget != null && currentTarget.isAlive)
         {
             currentAttack.Action(currentTarget, animator);
         }
@@ -82,7 +82,7 @@ public class Unit : MonoBehaviour
     // sprawdza czy target jest zywy
     private void IsTargetAlive()
     {
-        if (currentTarget != null || currentTarget.isAlive)
+        if (currentTarget != null )
         {
             if (!currentTarget.isAlive)
             {
