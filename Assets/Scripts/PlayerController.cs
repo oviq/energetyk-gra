@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+// !STEROWANIE!
+// LPM - zaznaczenie
+// PPM - chodzenie
+// spacja - atak
+// d - detarget
+
 // pozwala kontrolowac jednostki gracza, wydawac im polecenia itd
 public class PlayerController : MonoBehaviour
 {
@@ -17,19 +23,22 @@ public class PlayerController : MonoBehaviour
     public GameObject znacznikPostac;
     public GameObject znacznikPrzeciwnik;
     List<GameObject> znacznikInstances = new List<GameObject>();
+    List<GameObject> znacznikiNaPrzeciwnikach = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         selected = new HashSet<GameObject>();
-
-        //selected.Add(boy);
-        //selected.Add(gal);
+        znacznikInstances = new List<GameObject>();
+        znacznikiNaPrzeciwnikach = new List<GameObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // SYSTEM ZNACZNIKOW MA BUGA, ZNACZNIKI MOGA BYC
+        // USUWANE DOPIERO KIEDY POSTAC DOJDZIE DO CELU
+
         // akcja przy kliknieciu prawym przyciskiem
         if (Input.GetMouseButtonDown(1))
         { 
@@ -75,21 +84,41 @@ public class PlayerController : MonoBehaviour
                         if (selected.Contains(target))
                         {
                             RemoveFromSelected(target);
+                            UpdateTargetsZnaczniki();
                         }
                         // jezeli target nie jest zaznaczony
                         else
                         {
                             AddToSelected(target);
+                            UpdateTargetsZnaczniki();
                         }
                     } 
                     // jezeli nie nalezy do gracza
                     else
                     {
-
+                        foreach (GameObject x in selected)
+                        { 
+                            x.GetComponent<Unit>().currentTarget = target.GetComponent<Unit>();
+                            UpdateTargetsZnaczniki();
+                        }
                     }
                 }
 
             }
+        }
+
+        // atak wszystkich zaznaczonych jednostek jest na spacji
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            foreach (GameObject x in selected)
+            {
+                x.GetComponent<Unit>().Attack();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            DetargetSelected();
         }
     }
 
@@ -99,17 +128,45 @@ public class PlayerController : MonoBehaviour
     {
         selected.Add(target);
 
-        Transform targetZnacznikPosition = target.transform.Find("znacznikPosition").transform;
-        Instantiate(znacznikPostac, targetZnacznikPosition);
+        target.GetComponent<ZnacznikController>().AddZnacznik();
     }
 
     void RemoveFromSelected(GameObject target)
     {
         selected.Remove(target);
 
-        GameObject znacznik = target.transform.Find("znacznikPosition").transform.Find("zaznaczona postac(Clone)").transform.gameObject;
-        Destroy(znacznik);
+        target.GetComponent<ZnacznikController>().DestroyZnacznik();
+    }
+
+    // aktualizuje znaczniki przeciwnikow
+    void UpdateTargetsZnaczniki()
+    {
+        // usuwa dodane znaczniki na przeciwnikach
+        foreach (GameObject x in znacznikiNaPrzeciwnikach)
+        {
+            Destroy(x, 0f);
+        }
+        znacznikiNaPrzeciwnikach.Clear();
+
+        // dodaje znaczniki
+        foreach (GameObject x in selected)
+        {
+            if (x.GetComponent<Unit>().currentTarget!=null)
+            {
+                znacznikiNaPrzeciwnikach.Add(x.GetComponent<Unit>().currentTarget.GetComponent<ZnacznikController>().AddZnacznik());
+            }
+        }
+    }
+    
+    // detargetuje zaznaczone jednostki
+    void DetargetSelected()
+    {
+        foreach (GameObject x in selected)
+        {
+            x.GetComponent<Unit>().currentTarget.GetComponent<ZnacznikController>().DestroyZnacznik();
+            x.GetComponent<Unit>().currentTarget = null;
+        }
+
+        UpdateTargetsZnaczniki();
     }
 }
-
-

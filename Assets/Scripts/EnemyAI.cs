@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// TRZEBA NAPRAWIC WYSZUKIWANIE CELOW
+
 enum EnemyState {
     IDLE,
     FOLLOW,
@@ -52,6 +54,8 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+
+    // TO SAMO ALE NIE MOZE KORZYSTAC Z TRIGGER COLLIDERA
     // wejscie w trigger przez cokolwiek
     private void OnTriggerEnter2D(Collider2D collision)
     {
