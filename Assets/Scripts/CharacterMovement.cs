@@ -28,7 +28,20 @@ public class CharacterMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // poruszanie postacia
         rb.MovePosition(rb.position + (Vector2)movement * speed * Time.fixedDeltaTime);
+
+        // sprawdzanie czy mozna wykonac atak
+        if (unit.currentTarget != null)
+        {
+            if(unit.currentAttack != null)
+            {
+                if (Vector3.Distance(gameObject.transform.position, unit.currentTarget.transform.position) <= unit.currentAttack.GetRange())
+                {
+                    unit.Attack(animator);
+                }
+            }
+        }
     }
 
     public void ApplyMovement(Vector3 _movement)

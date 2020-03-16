@@ -2098,7 +2098,8 @@ MonoBehaviour:
   canBeControlledByPlayer: 0
   healthBar: {fileID: 916633865}
   attacks: []
-  currentAttack: {fileID: 0}
+  currentAttack: {fileID: 6841521449217120391, guid: 5e15b895a23e9c3479495081cbc64a45,
+    type: 3}
   currentTarget: {fileID: 0}
 --- !u!212 &1250297474
 SpriteRenderer:

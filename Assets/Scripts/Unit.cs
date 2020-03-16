@@ -33,10 +33,13 @@ public class Unit : MonoBehaviour
         isAlive = true;
 
         InvokeRepeating("IsTargetAlive", 0f, 0.1f);
+
+        currentAttack.cooldown = 0f;
     }
 
     void FixedUpdate()
     {
+        // sprawdzanie czy jednostka zyje
         if (isAlive)
         {
             if (hp <= 0)
@@ -45,6 +48,11 @@ public class Unit : MonoBehaviour
             }
         }
 
+        // ogarnianie cooldowna
+        if (currentAttack.cooldown > 0)
+        {
+            currentAttack.cooldown -= Time.fixedDeltaTime;
+        }
     }
 
     // mozna zadawac obrazenia
@@ -63,22 +71,17 @@ public class Unit : MonoBehaviour
         }
     }
 
-    // wykonuje currentAttack na currentTargecie
-    public void Attack()
-    {
-        if (currentTarget != null && currentTarget.isAlive)
-        {
-            HelperFunctions.LogMessage(this.name + " atakuje " + currentTarget.name + " uzywajac " + currentAttack.name);
-            currentAttack.Action(currentTarget);
-        }
-    }
-
     // wykonuje currentAttack na currentTargecie oraz daje atakowi dostep do systemu animacji
     public void Attack(Animator animator)
     {
-        if (currentTarget != null && currentTarget.isAlive)
+        if (currentAttack.cooldown <= 0) 
         {
-            currentAttack.Action(currentTarget, animator);
+            if (currentTarget != null && currentTarget.isAlive)
+            {
+                currentAttack.Action(currentTarget, animator);
+                currentAttack.cooldown = currentAttack.GetCooldown();
+                HelperFunctions.LogMessage(this.name + " atakuje " + currentTarget.name + " uzywajac " + currentAttack.name);
+            }
         }
     }
 

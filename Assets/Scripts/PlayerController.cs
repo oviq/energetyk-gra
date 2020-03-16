@@ -108,12 +108,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //atak wszystkich zaznaczonych jednostek jest na spacji
+        //atak wszystkich zaznaczonych jednostek (do wyciecia, ale na razie sie przydaje)
         if (Input.GetKeyDown(KeyCode.A))
         {
             foreach (GameObject x in selected)
             {
-                x.GetComponent<Unit>().Attack();
+                x.GetComponent<Unit>().Attack(new Animator());
             }
         }
 
