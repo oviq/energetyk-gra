@@ -2075,7 +2075,7 @@ GameObject:
   - component: {fileID: 1250297483}
   - component: {fileID: 1250297481}
   m_Layer: 0
-  m_Name: przeciwnik
+  m_Name: Blob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2239,7 +2239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7dc99223fa91845a2723223ddfb84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightDistance: 3
+  sightDistance: 7
 --- !u!114 &1250297480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2553,12 +2553,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boy: {fileID: 1681440904}
   gal: {fileID: 1589824005}
-  cam: {fileID: 1619892105}
   znacznikPrefab: {fileID: 4132110428534388901, guid: 5680c0a6124d8b94d93c7de696cf6803,
     type: 3}
   znacznikPostac: {fileID: 7634088689688134532, guid: ba2d7ec770c74e9438b291a0739f544f,
     type: 3}
   znacznikPrzeciwnik: {fileID: 6508408846780427736, guid: f7b028a70550b0d4d8b56eb54a30401c,
+    type: 3}
+  pauseTextPrefab: {fileID: 2022627716683314296, guid: edc2be94ea2c3974d8022bf03a634ad3,
     type: 3}
 --- !u!4 &1764474230
 Transform:
@@ -2684,7 +2685,7 @@ PrefabInstance:
     - target: {fileID: 5413560179160676559, guid: ab8de0b8dd930574e91d7db6d39e42ea,
         type: 3}
       propertyPath: m_Name
-      value: Gal
+      value: Baba
       objectReference: {fileID: 0}
     - target: {fileID: 7947847486084135763, guid: ab8de0b8dd930574e91d7db6d39e42ea,
         type: 3}
@@ -2708,7 +2709,7 @@ PrefabInstance:
     - target: {fileID: 6391450661015585032, guid: 666bb830b5e52484e8be2b0657d9e018,
         type: 3}
       propertyPath: m_Name
-      value: Boy
+      value: Chlop
       objectReference: {fileID: 0}
     - target: {fileID: 6391450661015585034, guid: 666bb830b5e52484e8be2b0657d9e018,
         type: 3}

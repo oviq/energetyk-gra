@@ -58,6 +58,8 @@ public class Unit : MonoBehaviour
             {
                 healthBar.SetHealth(hp);
             }
+
+            HelperFunctions.LogMessage(this.name + " otrzymuje " + damage + " obrazen");
         }
     }
 
@@ -66,6 +68,7 @@ public class Unit : MonoBehaviour
     {
         if (currentTarget != null && currentTarget.isAlive)
         {
+            HelperFunctions.LogMessage(this.name + " atakuje " + currentTarget.name + " uzywajac " + currentAttack.name);
             currentAttack.Action(currentTarget);
         }
     }

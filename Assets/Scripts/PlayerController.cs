@@ -5,8 +5,9 @@ using UnityEngine;
 // !STEROWANIE!
 // LPM - zaznaczenie
 // PPM - chodzenie
-// spacja - atak
+// spacja - pauza
 // d - detarget
+// a - atak
 
 // pozwala kontrolowac jednostki gracza, wydawac im polecenia itd
 public class PlayerController : MonoBehaviour
@@ -15,8 +16,6 @@ public class PlayerController : MonoBehaviour
     public GameObject gal;
 
     private HashSet<GameObject> selected;
-
-    public Camera cam;
 
     public GameObject znacznikPrefab;
     public GameObject znacznikPostac;
@@ -32,9 +31,10 @@ public class PlayerController : MonoBehaviour
         znacznikiNaPrzeciwnikach = new List<GameObject>();
 
         InvokeRepeating("UpdateTargetsZnaczniki", 0f, 0.2f);
+
+        isPaused = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         // SYSTEM ZNACZNIKOW MA BUGA, ZNACZNIKI MOGA BYC
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
             foreach(GameObject x in selected)
             {
                 // tu powinna byc jakas dobrze napisana funkcja ale na razie musi wystarzyc
-                Vector2 znacznikPosition = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition) + new Vector2((2-i)-1.5f, 0);
+                Vector2 znacznikPosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector2((2-i)-1.5f, 0);
 
                 // dodaje znaczniki
                 znacznikInstances.Add(Instantiate(znacznikPrefab, znacznikPosition, Quaternion.identity));
@@ -108,8 +108,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // atak wszystkich zaznaczonych jednostek jest na spacji
-        if (Input.GetKeyDown(KeyCode.Space))
+        //atak wszystkich zaznaczonych jednostek jest na spacji
+        if (Input.GetKeyDown(KeyCode.A))
         {
             foreach (GameObject x in selected)
             {
@@ -117,6 +117,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // pauza
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isPaused)
+            {
+                Unpause();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+
+        // detargetowanie
         if (Input.GetKeyDown(KeyCode.D))
         {
             DetargetSelected();
@@ -169,5 +183,30 @@ public class PlayerController : MonoBehaviour
         }
 
         UpdateTargetsZnaczniki();
+    }
+
+    // Rzeczy dotyczace pauzowania
+
+    bool isPaused;
+    GameObject pauseText;
+    public GameObject pauseTextPrefab;
+
+    void Pause()
+    {
+        Time.timeScale = 0f;
+
+        pauseText = Instantiate(pauseTextPrefab);
+
+        isPaused = true;
+    }
+    
+
+    void Unpause()
+    {
+        Time.timeScale = 1f;
+
+        Destroy(pauseText);
+
+        isPaused = false;
     }
 }
