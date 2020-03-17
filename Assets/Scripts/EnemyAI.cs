@@ -61,7 +61,6 @@ public class EnemyAI : MonoBehaviour
             // jezeli nie ma celu to przechodzi w idle
             if (unit.currentTarget == null)
             {
-                Debug.Log("DUapa");
                 state = EnemyState.IDLE;
             }
         }

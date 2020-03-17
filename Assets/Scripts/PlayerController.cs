@@ -44,14 +44,17 @@ public class PlayerController : MonoBehaviour
             int i = 0;
             foreach(GameObject x in selected)
             {
-                // tu powinna byc jakas dobrze napisana funkcja ale na razie musi wystarzyc
-                Vector2 znacznikPosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector2((2-i)-1.5f, 0);
+                if (x.GetComponent<Unit>().isAlive)
+                {
+                    // tu powinna byc jakas dobrze napisana funkcja ale na razie musi wystarzyc
+                    Vector2 znacznikPosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector2((2 - i) - 1.5f, 0);
 
-                // dodaje znaczniki
-                GameObject znacznik = Instantiate(znacznikPrefab, znacznikPosition, Quaternion.identity);
-                x.GetComponent<CharacterPathfinding>().SetTarget(znacznik);
+                    // dodaje znaczniki
+                    GameObject znacznik = Instantiate(znacznikPrefab, znacznikPosition, Quaternion.identity);
+                    x.GetComponent<CharacterPathfinding>().SetTarget(znacznik);
 
-                i++;
+                    i++;
+                }
             }
         }
 
@@ -77,8 +80,12 @@ public class PlayerController : MonoBehaviour
                         // jezeli target nie jest zaznaczony
                         else
                         {
-                            AddToSelected(target);
-                            UpdateTargetsZnaczniki();
+                            // jezeli zyje
+                            if (target.GetComponent<Unit>().isAlive) 
+                            {
+                                AddToSelected(target);
+                                UpdateTargetsZnaczniki();
+                            }
                         }
                     } 
                     // jezeli nie nalezy do gracza
@@ -87,6 +94,7 @@ public class PlayerController : MonoBehaviour
                         foreach (GameObject x in selected)
                         { 
                             x.GetComponent<Unit>().currentTarget = target.GetComponent<Unit>();
+                            x.GetComponent<CharacterPathfinding>().SetTarget(target.transform, x.GetComponent<Unit>().currentAttack.GetRange());
                             UpdateTargetsZnaczniki();
                         }
                     }

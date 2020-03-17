@@ -11,7 +11,8 @@ public class CharacterPathfinding : MonoBehaviour
     public Transform target;
     GameObject targetGameObject;
     public float nextWaypointDistance;
-    public float maxDistanceToTarget;
+    public float defaultMaxDistanceToTarget;
+    float maxDistanceToTarget;
 
     Path path;
     int currentWaypoint = 0;
@@ -100,6 +101,7 @@ public class CharacterPathfinding : MonoBehaviour
 
     public void SetTarget(Transform t)
     {
+        maxDistanceToTarget = defaultMaxDistanceToTarget;
         target = t;
         UpdatePath();
     }
@@ -112,10 +114,18 @@ public class CharacterPathfinding : MonoBehaviour
     /// <param name="g"></param>
     public void SetTarget(GameObject g)
     {
+        maxDistanceToTarget = defaultMaxDistanceToTarget;
         // niszczenie poprzedniego znacznika
         Destroy(targetGameObject);
         target = g.transform;
         targetGameObject = g;
+        UpdatePath();
+    }
+
+    public void SetTarget(Transform t, float tolerance)
+    {
+        maxDistanceToTarget = tolerance;
+        target = t;
         UpdatePath();
     }
 }

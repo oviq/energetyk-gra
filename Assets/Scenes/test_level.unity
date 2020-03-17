@@ -1736,7 +1736,7 @@ TilemapRenderer:
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
-  m_Mode: 0
+  m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!1839735485 &1236348297
@@ -2074,6 +2074,7 @@ GameObject:
   - component: {fileID: 1250297482}
   - component: {fileID: 1250297483}
   - component: {fileID: 1250297481}
+  - component: {fileID: 1250297484}
   m_Layer: 0
   m_Name: Blob
   m_TagString: Untagged
@@ -2098,7 +2099,7 @@ MonoBehaviour:
   canBeControlledByPlayer: 0
   healthBar: {fileID: 916633865}
   attacks: []
-  currentAttack: {fileID: 6841521449217120391, guid: 5e15b895a23e9c3479495081cbc64a45,
+  currentAttack: {fileID: 4742482914091820384, guid: 28e5327dd416b5d41b9f5f2abdc2c5d4,
     type: 3}
   currentTarget: {fileID: 0}
 --- !u!212 &1250297474
@@ -2241,6 +2242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sightDistance: 7
+  state: 0
 --- !u!114 &1250297480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,7 +2257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   nextWaypointDistance: 1
-  maxDistanceToTarget: 0.9
+  defaultMaxDistanceToTarget: 0.7
 --- !u!114 &1250297481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2304,6 +2306,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+--- !u!114 &1250297484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250297472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fcb4e8f8d3ce04c9038aa5fed4ac0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1285238361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2391,6 +2405,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5413560177797411530}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1589824017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589824005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fcb4e8f8d3ce04c9038aa5fed4ac0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1619892103
 GameObject:
   m_ObjectHideFlags: 0
@@ -2523,6 +2549,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6391450660549542272}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1681440916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681440904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fcb4e8f8d3ce04c9038aa5fed4ac0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1764474228
 GameObject:
   m_ObjectHideFlags: 0
@@ -2683,6 +2721,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5413560179160676548, guid: ab8de0b8dd930574e91d7db6d39e42ea,
+        type: 3}
+      propertyPath: defaultMaxDistanceToTarget
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413560179160676550, guid: ab8de0b8dd930574e91d7db6d39e42ea,
+        type: 3}
+      propertyPath: currentAttack
+      value: 
+      objectReference: {fileID: 4742482914091820384, guid: 28e5327dd416b5d41b9f5f2abdc2c5d4,
+        type: 3}
     - target: {fileID: 5413560179160676559, guid: ab8de0b8dd930574e91d7db6d39e42ea,
         type: 3}
       propertyPath: m_Name
@@ -2771,8 +2820,13 @@ PrefabInstance:
         type: 3}
       propertyPath: currentAttack
       value: 
-      objectReference: {fileID: 6841521449217120391, guid: 5e15b895a23e9c3479495081cbc64a45,
+      objectReference: {fileID: 4742482914091820384, guid: 28e5327dd416b5d41b9f5f2abdc2c5d4,
         type: 3}
+    - target: {fileID: 6391450661015585040, guid: 666bb830b5e52484e8be2b0657d9e018,
+        type: 3}
+      propertyPath: defaultMaxDistanceToTarget
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 9069765736463866153, guid: 666bb830b5e52484e8be2b0657d9e018,
         type: 3}
       propertyPath: m_AnchorMax.x

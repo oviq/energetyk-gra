@@ -21,6 +21,6 @@ public class HelperFunctions
 
     public static void LogMessage(string message)
     {
-        Debug.Log(message + "   (" + Random.Range(1f, 10f) + ")");
+        //Debug.Log(message + "   (" + Random.Range(1f, 10f) + ")");
     }
 }

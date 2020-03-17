@@ -9,7 +9,7 @@ public class XKill : Attack
     // to jest funkcja do atakowania celu z wykorzystaniem animacji
     public override void Action(Unit target, Animator animator)
     {
-        target.TakeDamage(5f);
+        target.TakeDamage(10f);
     }
 
     public override float GetRange()
