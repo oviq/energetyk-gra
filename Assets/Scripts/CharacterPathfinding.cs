@@ -27,7 +27,7 @@ public class CharacterPathfinding : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cm = GetComponent<CharacterMovement>();
 
-        InvokeRepeating("UpdatePath", 0f, 0.5f);
+        InvokeRepeating("UpdatePath", 0f, 0.8f);
     }
 
     void UpdatePath()
@@ -93,6 +93,7 @@ public class CharacterPathfinding : MonoBehaviour
                     Destroy(targetGameObject);
                     targetGameObject = null;
                 }
+
             }
         }
     }
@@ -115,5 +116,6 @@ public class CharacterPathfinding : MonoBehaviour
         Destroy(targetGameObject);
         target = g.transform;
         targetGameObject = g;
+        UpdatePath();
     }
 }
