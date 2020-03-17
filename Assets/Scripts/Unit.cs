@@ -21,6 +21,7 @@ public class Unit : MonoBehaviour
     public List<Attack> attacks;
     public Attack currentAttack;
     public Unit currentTarget;
+    private float currentCooldown = 0;
 
     void Start()
     {
