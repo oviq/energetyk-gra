@@ -21,6 +21,4 @@ public class XKill : Attack
     {
         return 2f;
     }
-
-    public new float cooldown = 0f;
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 // PPM - chodzenie
 // spacja - pauza
 // d - detarget
-// a - atak
+// a - atak (do wyciecia ale poki co mozna zostawic) 
 
 // pozwala kontrolowac jednostki gracza, wydawac im polecenia itd
 public class PlayerController : MonoBehaviour
@@ -37,22 +37,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // SYSTEM ZNACZNIKOW MA BUGA, ZNACZNIKI MOGA BYC
-        // USUWANE DOPIERO KIEDY POSTAC DOJDZIE DO CELU
-
         // akcja przy kliknieciu prawym przyciskiem
         if (Input.GetMouseButtonDown(1))
         { 
-            // usuwa poprzednie znaczniki jesli takie sa
-            if (znacznikInstances.Count!=0)
-            {
-                foreach(GameObject x in znacznikInstances)
-                {
-                    Destroy(x, 0f);
-                }
-                znacznikInstances.Clear();
-            }
-
             // spawnuje i ustawia znaczniki jako cele skryptu wyszukujacego sciezki
             int i = 0;
             foreach(GameObject x in selected)
@@ -61,8 +48,8 @@ public class PlayerController : MonoBehaviour
                 Vector2 znacznikPosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector2((2-i)-1.5f, 0);
 
                 // dodaje znaczniki
-                znacznikInstances.Add(Instantiate(znacznikPrefab, znacznikPosition, Quaternion.identity));
-                x.GetComponent<CharacterPathfinding>().SetTarget(znacznikInstances[i].transform);
+                GameObject znacznik = Instantiate(znacznikPrefab, znacznikPosition, Quaternion.identity);
+                x.GetComponent<CharacterPathfinding>().SetTarget(znacznik);
 
                 i++;
             }

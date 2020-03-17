@@ -9,6 +9,7 @@ public class CharacterPathfinding : MonoBehaviour
 {
 
     public Transform target;
+    GameObject targetGameObject;
     public float nextWaypointDistance;
     public float maxDistanceToTarget;
 
@@ -78,9 +79,20 @@ public class CharacterPathfinding : MonoBehaviour
             {
                 cm.ApplyMovement(direction);
             }
-            else
+            else // to tutaj ogarnia sytuacje w ktorej obiekt znalazl sie wystarczajaco blisko celu
             {
+                // zatrzymywansko
                 cm.ApplyMovement(Vector3.zero);
+
+                // detargetowansko
+                target = null;
+
+                // niszczenie znacznika jesli taki jest
+                if (targetGameObject != null)
+                {
+                    Destroy(targetGameObject);
+                    targetGameObject = null;
+                }
             }
         }
     }
@@ -89,5 +101,19 @@ public class CharacterPathfinding : MonoBehaviour
     {
         target = t;
         UpdatePath();
+    }
+
+
+    /// <summary>
+    /// jak cos to uzywac tylko do znacznikow,
+    /// automatycznie usuwa obiekty
+    /// </summary>
+    /// <param name="g"></param>
+    public void SetTarget(GameObject g)
+    {
+        // niszczenie poprzedniego znacznika
+        Destroy(targetGameObject);
+        target = g.transform;
+        targetGameObject = g;
     }
 }

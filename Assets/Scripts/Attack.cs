@@ -11,5 +11,5 @@ public abstract class Attack : MonoBehaviour
 
     public abstract float GetRange();
 
-    public float cooldown;
+    public float cooldown = 0;
 }
