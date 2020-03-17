@@ -16,12 +16,16 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Unit unit;
 
-    void Start()
+    private void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         unit = gameObject.GetComponent<Unit>();
 
+    }
+
+    void Start()
+    {
         // sprawdza czy jednostka zyje co jakis czas
         InvokeRepeating("IsDead", 0f, 0.1f);
     }

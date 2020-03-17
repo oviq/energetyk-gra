@@ -17,10 +17,10 @@ public class Unit : MonoBehaviour
     // dostep do klasy paska zycia
     public HealthBar healthBar;
 
-    // dostepne ataki jednostki i aktualnie wybrany atak, oraz aktualny cel
-    public List<Attack> attacks;
+    // aktualnie wybrany atak, oraz aktualny cel
     public Attack currentAttack;
     public Unit currentTarget;
+    // przy implementacji wielu umiejetnosci na postac trzeba bedzie sie tego pozbyc i zastapic jakims hashtablem
     private float currentCooldown = 0;
 
     void Start()

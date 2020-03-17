@@ -21,13 +21,17 @@ public class CharacterPathfinding : MonoBehaviour
     Rigidbody2D rb;
     CharacterMovement cm;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         cm = GetComponent<CharacterMovement>();
 
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         InvokeRepeating("UpdatePath", 0f, 0.8f);
     }
 

@@ -19,14 +19,18 @@ public class EnemyAI : MonoBehaviour
 
     public EnemyState state;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         unit = GetComponent<Unit>();
         pathfinding = GetComponent<CharacterPathfinding>();
         // ! Poki co skrypt korzysta z pustego animatora, ale kiedys przydaloby sie cos podpiac !
-        animator = new Animator();
+        animator = (Animator)null;
 
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         state = EnemyState.IDLE;
 
         InvokeRepeating("UpdateState", 0f, 0.3f);
