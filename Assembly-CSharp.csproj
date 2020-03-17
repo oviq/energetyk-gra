@@ -75,7 +75,6 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\ZnacznikController.cs" />
-    <Compile Include="Assets\Scripts\attacks\BOZ.cs" />
     <Compile Include="Assets\Scripts\attacks\XKill.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/unity/projekty/energetyk_gra/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

@@ -56,7 +56,7 @@ public class Unit : MonoBehaviour
     }
 
     // mozna zadawac obrazenia
-    public void TakeDamage(float damage)
+    public void TakeDamege(float damage)
     {
         if (isAlive)
         {

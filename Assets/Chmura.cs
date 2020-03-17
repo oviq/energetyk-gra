@@ -31,7 +31,7 @@ public class Chmura : MonoBehaviour
             {
                 foreach (Unit x in targets)
                 {
-                    x.TakeDamage(damage);
+                    x.TakeDamege(damage);
                 }
 
                 attack_counter = 0;
